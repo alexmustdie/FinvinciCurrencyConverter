@@ -15,11 +15,11 @@ def convert():
 
     try:
         amount = float(request.args['amount'])
-    except TypeError:
-        raise Exception('Amount must be a number!')
+    except ValueError:
+        raise Exception('Amount must be a number')
 
     if amount <= 0:
-        raise Exception('Amount must be more than zero!')
+        raise Exception('Amount must be more than zero')
 
     if 'from' not in request.args:
         raise Exception('You didn\'t specify the \'from\' parameter')
@@ -31,8 +31,11 @@ def convert():
 
     to_currency = request.args['to']
 
-    if from_currency not in config.CURRENCIES or to_currency not in config.CURRENCIES:
+    if (from_currency not in config.CURRENCIES) or (to_currency not in config.CURRENCIES):
         raise Exception('Available currencies: %s' % ', '.join(config.CURRENCIES))
+
+    if from_currency == to_currency:
+        raise Exception('You specified the same currency')
 
     try:
         response = utils.call_oxr_api('convert', [amount, from_currency, to_currency])
