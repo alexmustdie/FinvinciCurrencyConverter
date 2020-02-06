@@ -38,8 +38,8 @@ def convert():
         raise Exception('You specified the same currency')
 
     try:
-        response = utils.call_oxr_api('convert', [amount, from_currency, to_currency])
+        result = utils.call_oxr_api('latest.json')
     except:
         raise Exception('An error has occurred')
 
-    return jsonify(response=response)
+    return jsonify(response=round((amount / result['rates'][from_currency] * result['rates'][to_currency]), 6))
