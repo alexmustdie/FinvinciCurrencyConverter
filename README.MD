@@ -4,7 +4,7 @@ This is a small REST application to convert any amount of money from one currenc
 
 **Definition**
 
-https://<span></span>finvinci-currency-converter.herokuapp.com/api/convert/:value/:from/:to
+https://<span></span>finvinci-currency-converter.herokuapp.com/api/convert?amount={amount}&from={from}&to={to}
 
 **Parameters**
 
